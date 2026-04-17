@@ -42,7 +42,7 @@ def main():
                 if knownProtocol.name not in packet_layers:
                     print(f"Wrong Service On Port:")
                     print(f"    Packet {packet.number}: Port {dest_port} is reserved for {knownProtocol.name},")
-                    print(f"    but the packet contains: {packet.highest_layer.upper()}")
+                    print(f"    but the packet contains: {packet.layers}")
                     print(f"    Connection: {packet.ip.src} -> {packet.ip.dst}\n")
     capture.close()
 
