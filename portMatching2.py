@@ -24,7 +24,7 @@ protocolList = [
 
 def main():
     fileName = sys.argv[1]
-    capture = pyshark.FileCapture(fileName)
+    capture = pyshark.FileCapture(fileName, decode_as={'tcp.port==8080': 'telnet'})
     for packet in capture:
         if not hasattr(packet, 'ip'):
             continue
