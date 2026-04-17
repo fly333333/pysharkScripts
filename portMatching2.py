@@ -18,7 +18,7 @@ class NetworkProtocol:
 protocolList = [
     NetworkProtocol("HTTP", 80),
     NetworkProtocol("TELNET", 23),
-    NetworkProtocol("SSH", 22),
+    NetworkProtocol("SSHv2", 22),
     NetworkProtocol("TLS", 443)
 ]
 
