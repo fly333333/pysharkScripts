@@ -1,10 +1,9 @@
 import sys
-import asyncio
 import pyshark
 
 # Citation: Used Scott Kirlin's "listProtocols.py" for starters.
 
-suspectProtocols = {"FTP", "TELNET", "HTTP"}
+suspectProtocols = {"FTP", "TELNET", "HTTP", "SSL"}
 
 def main():
     fileName = sys.argv[1]
@@ -21,4 +20,4 @@ def main():
     capture.close()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
