@@ -29,6 +29,11 @@ def main():
         if not hasattr(packet, 'ip'):
             continue
 
+        # Took me forever to figure out: filter out the TCP handshake packets
+        tcp_payload_len = int(getattr(packet.tcp, 'len', 0))
+        if tcp_payload_len == 0:
+            continue
+
         packet_layers = [layer.layer_name.upper() for layer in packet.layers]
 
         dest_port = "N/A"
