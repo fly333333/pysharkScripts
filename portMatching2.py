@@ -24,24 +24,26 @@ protocolList = [
 
 def main():
     fileName = sys.argv[1]
-    capture = pyshark.FileCapture(fileName, decode_as={'tcp.port==8080': 'telnet'})
+    capture = pyshark.FileCapture(fileName)
     for packet in capture:
         if not hasattr(packet, 'ip'):
             continue
 
         packet_layers = [layer.layer_name.upper() for layer in packet.layers]
 
+        dest_port = "N/A"
+        if hasattr(packet, 'tcp'):
+            dest_port = packet.tcp.dstport
+        elif hasattr(packet, 'udp'):
+            dest_port = packet.udp.dstport
+
         for knownProtocol in protocolList:
-            if knownProtocol.name in packet_layers:
-
-                if not knownProtocol.port_match(packet):
-                    actualPort = packet.tcp.dstport if hasattr(packet, 'tcp') else "N/A"
-
-                    print(f"PORT MISMATCH FOUND:")
-                    print(f"  Packet {packet.number}: {knownProtocol.name} detected on non-standard port!")
-                    print(f"  Source IP: {packet.ip.src} -> Dest IP: {packet.ip.dst}")
-                    print(f"  Detected Port: {actualPort}")
-                    print(f"  Expected Port: {knownProtocol.default_port}")
+            if dest_port == knownProtocol.default_port:
+                if knownProtocol.name not in packet_layers:
+                    print(f"Wrong Service On Port:")
+                    print(f"    Packet {packet.number}: Port {dest_port} is reserved for {knownProtocol.name},")
+                    print(f"    but the packet contains: {packet.highest_layer.upper()}")
+                    print(f"    Connection: {packet.ip.src} -> {packet.ip.dst}\n")
     capture.close()
 
 if __name__ == "__main__":
