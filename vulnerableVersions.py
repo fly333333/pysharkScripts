@@ -54,6 +54,8 @@ def packet_checks(packet, packet_layers, dest_port):
 def main():
     fileName = sys.argv[1]
     capture = pyshark.FileCapture(fileName)
+    emptyTCP = []
+
     for packet in capture:
 
         # Not an IP Packet, skip.
@@ -79,8 +81,10 @@ def main():
             tcp_payload_len = int(getattr(packet.tcp, 'len', -1))
             for knownProtocol in protocolList:
                 if dest_port == knownProtocol.default_port and tcp_payload_len == 0:
-                    print(f"Packet {packet.number} with Port {dest_port} has TCP length 0. Potential Handshake, Scanning or otherwise empty TCP packet.\n")
+                    emptyTCP.append(packet.number)
+                    # print(f"Packet {packet.number} with Port {dest_port} has TCP length 0. Potential Handshake, Scanning or otherwise empty TCP packet.\n")
 
+    print(f"The following packets are Handshake, Scanning, or otherwise Empty: {emptyTCP}")
     capture.close()
 
 if __name__ == "__main__":
