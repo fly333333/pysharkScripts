@@ -77,8 +77,9 @@ def main():
         # I previously had this above the check, however, its more valuable to mention after the check, rather than skip the check if it a Handshake.
         if hasattr(packet, 'tcp'):
             tcp_payload_len = int(getattr(packet.tcp, 'len', 0))
-            if tcp_payload_len == 0:
-                print(f"Packet {packet.number} with Port {dest_port} has TCP length 0. Potential Handshake, Scanning or otherwise empty TCP packet.\n")
+            for knownProtocol in protocolList:
+                if dest_port == knownProtocol.default_port and tcp_payload_len == 0:
+                    print(f"Packet {packet.number} with Port {dest_port} has TCP length 0. Potential Handshake, Scanning or otherwise empty TCP packet.\n")
 
     capture.close()
 
