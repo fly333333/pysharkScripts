@@ -10,7 +10,7 @@ protocolList = [
     NetworkProtocol("HTTP", 80),
     NetworkProtocol("TELNET", 23),
     NetworkProtocol("SSH", 22),
-    NetworkProtocol("TLS", 443)
+    NetworkProtocol("TLS", 443),
     NetworkProtocol("DNS", 53)
 
 ]
