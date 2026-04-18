@@ -46,9 +46,9 @@ def main():
                     print(f"    but the packet contains: {packet_layers}")
                     print(f"    Connection: {packet.ip.src} -> {packet.ip.dst}\n")
 
-            tcp_payload_len = int(getattr(packet.tcp, 'len', 0))
-            if tcp_payload_len == 0:
-                print(f"Packet {packet.number} with Port {dest_port} has TCP length 0. Potential Handshake, Scanning or otherwise empty TCP packet.")
+                tcp_payload_len = int(getattr(packet.tcp, 'len', 0))
+                if tcp_payload_len == 0:
+                    print(f"Packet {packet.number} with Port {dest_port} has TCP length 0. Potential Handshake, Scanning or otherwise empty TCP packet.")
 
     capture.close()
 
