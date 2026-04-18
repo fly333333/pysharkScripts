@@ -30,8 +30,8 @@ def main():
             continue
 
         packet_layers = [layer.layer_name.upper() for layer in packet.layers]
-        print(f"Packet {packet.number} has non upper layers: {packet.layers}")
-        print(f"Packet {packet.number} has upper layers: {packet_layers}")
+        # print(f"Packet {packet.number} has non upper layers: {packet.layers}")
+        # print(f"Packet {packet.number} has upper layers: {packet_layers}")
         dest_port = "N/A"
         if hasattr(packet, 'tcp'):
             dest_port = packet.tcp.dstport
