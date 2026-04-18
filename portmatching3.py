@@ -44,7 +44,7 @@ def main():
             dest_port = packet.udp.dstport
 
         for knownProtocol in protocolList:
-            if knownProtocol.port_match(packet):
+            if dest_port == knownProtocol.default_port:
                 if knownProtocol.name not in packet_layers:
                     print(f"Wrong Service On Port:")
                     print(f"    Packet {packet.number}: Port {dest_port} is reserved for {knownProtocol.name},")
