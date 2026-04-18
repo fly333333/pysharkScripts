@@ -46,7 +46,7 @@ def main():
                 # Check if the packet has a TCP length of 0. If so, this means this packet is a handshake, a scan (i.e. RST flag), or empty.
                 # I previously had this above the check, however, its more valuable to mention after the check, rather than skip the check if it a Handshake.
             if hasattr(packet, 'tcp'):
-                tcp_payload_len = int(getattr(packet.tcp, 'len', 0))
+                tcp_payload_len = int(getattr(packet.tcp, 'len', -1))
                 if tcp_payload_len == 0:
                     print(f"Packet {packet.number} with Port {dest_port} has TCP length 0. Potential Handshake, Scanning or otherwise empty TCP packet.\n")
 
