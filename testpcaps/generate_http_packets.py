@@ -12,7 +12,7 @@ import argparse
 def send_http_packet(
     dst_ip: str,
     src_ip: str = "192.168.1.100",
-    dst_port: int = 80,
+    dst_port: int = 22,
     payload: str = "",
     count: int = 1,
     verbose: bool = True,
