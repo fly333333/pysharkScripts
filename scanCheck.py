@@ -50,6 +50,7 @@ def check_scan_flags(packet, dest_port):
         print(f"Potential Scan Detected:")
         print(f"    Packet {packet.number}: {SCAN_FLAGS[flags]} (flags={flags})")
         print(f"    Connection: {packet.ip.src} -> {packet.ip.dst} on port {dest_port}")
+        print(f"    Port: {packet.tcp.dstport} -> {packet.tcp.srcport}")
 
 def packet_checks(packet, packet_layers, dest_port):
     """Check if the destination port matches the expected protocol layer."""
