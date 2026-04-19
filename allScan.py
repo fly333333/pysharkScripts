@@ -13,11 +13,10 @@ protocolList = [
     NetworkProtocol("TLS", 443),
     NetworkProtocol("DNS", 53),
     NetworkProtocol("FTP", 20),
-    NetworkProtocol("TLS", 443)
 ]
 
 
-suspectProtocols = {"FTP", "TELNET", "HTTP", "SSL"}
+suspectProtocols = {"FTP", "TELNET", "HTTP", "TLS"}
 
 
 # Hex version codes mapped to human-readable names.
