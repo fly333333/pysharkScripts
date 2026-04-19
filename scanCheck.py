@@ -25,10 +25,10 @@ VULNERABLE_VERSIONS = {
 
 # TCP flag hex values and what scan type they suggest.
 SCAN_FLAGS = {
-    "0x001": "FIN Scan",
-    "0x000": "NULL Scan",
-    "0x029": "XMAS Scan",  # FIN + URG + PSH
-    "0x014": "RST, ACK Scan",
+    "0x0001": "FIN Scan",
+    "0x0000": "NULL Scan",
+    "0x0029": "XMAS Scan",  # FIN + URG + PSH
+    "0x0014": "RST, ACK Scan",
 
 }
 
@@ -44,7 +44,7 @@ def check_scan_flags(packet, dest_port):
     if not hasattr(packet, 'tcp'):
         return
     flags = getattr(packet.tcp, 'flags', None)
-    print(f"Packet: {packet.number} and Flags Found:{flags}\n")
+    # print(f"Packet: {packet.number} and Flags Found:{flags}\n")
 
     if flags and flags in SCAN_FLAGS:
         print(f"Potential Scan Detected:")
@@ -83,8 +83,8 @@ def main():
     for packet in capture:
 
         # Not an IP Packet, skip.
-        # if not hasattr(packet, 'ip'):
-          #  continue
+        if not hasattr(packet, 'ip'):
+            continue
 
         # Get the Layers within the Packet.
         packet_layers = [layer.layer_name.upper() for layer in packet.layers]
