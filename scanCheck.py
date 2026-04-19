@@ -44,6 +44,8 @@ def check_scan_flags(packet, dest_port):
     if not hasattr(packet, 'tcp'):
         return
     flags = getattr(packet.tcp, 'flags', None)
+    print(f"Packet: {packet.number} and Flags Found:{flags}\n")
+
     if flags and flags in SCAN_FLAGS:
         print(f"Potential Scan Detected:")
         print(f"    Packet {packet.number}: {SCAN_FLAGS[flags]} (flags={flags})")
@@ -81,8 +83,8 @@ def main():
     for packet in capture:
 
         # Not an IP Packet, skip.
-        if not hasattr(packet, 'ip'):
-            continue
+        # if not hasattr(packet, 'ip'):
+          #  continue
 
         # Get the Layers within the Packet.
         packet_layers = [layer.layer_name.upper() for layer in packet.layers]
