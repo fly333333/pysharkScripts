@@ -28,6 +28,8 @@ SCAN_FLAGS = {
     "0x001": "FIN Scan",
     "0x000": "NULL Scan",
     "0x029": "XMAS Scan",  # FIN + URG + PSH
+    "0x014": "RST, ACK Scan",
+
 }
 
 def get_protocol_version(packet, protocol_name):
