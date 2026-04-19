@@ -52,6 +52,9 @@ def check_scan_flags(packet, dest_port):
 def packet_checks(packet, packet_layers, dest_port):
     """Check if the destination port matches the expected protocol layer."""
     isHandshake = hasattr(packet, 'tcp') and int(getattr(packet.tcp, 'len', -1)) == 0
+    # Check packet for scan flags
+    check_scan_flags(packet, dest_port)
+
     for knownProtocol in protocolList:
         if dest_port == knownProtocol.default_port:
             if knownProtocol.name not in packet_layers and not isHandshake:
@@ -69,8 +72,6 @@ def packet_checks(packet, packet_layers, dest_port):
                     print(f"    Packet {packet.number}: {knownProtocol.name} version is {version_name} ({version})")
                     print(f"    Connection: {packet.ip.src} -> {packet.ip.dst}")
 
-    # Check packet for scan flags
-    check_scan_flags(packet, dest_port)
 
 def main():
     fileName = sys.argv[1]
