@@ -36,9 +36,7 @@ def packet_checks(packet, packet_layers, dest_port):
     """Check if the destination port matches the expected protocol layer."""
     for knownProtocol in protocolList:
         if dest_port == knownProtocol.default_port:
-            if hasattr(packet, 'tcp') and (int(getattr(packet.tcp, 'len', -1))) == 0:
-                continue
-            elif knownProtocol.name not in packet_layers:
+            elif knownProtocol.name not in packet_layers and not (hasattr(packet, 'tcp') and not (int(getattr(packet.tcp, 'len', -1))) == 0):
                 print(f"Wrong Service On Port:")
                 print(f"    Packet {packet.number}: Port {dest_port} is for {knownProtocol.name},")
                 print(f"    but the packet contains: {packet_layers}")
