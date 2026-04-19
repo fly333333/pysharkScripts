@@ -1,7 +1,6 @@
 from scapy.all import rdpcap, wrpcap, TCP
 
-# Load your original capture
-packets = rdpcap('testpcaps/corruptTelnet.cap')
+packets = rdpcap('telnet.cap')
 
 # Loop through and change the port on some packets
 for i, pkt in enumerate(packets):
@@ -9,14 +8,13 @@ for i, pkt in enumerate(packets):
         # Change every 3rd packet to port 8080 instead of 23
         if i % 3 == 0:
             if pkt[TCP].dport == 23:
-                pkt[TCP].dport = 8080
+                pkt[TCP].dport = 80
             else:
-                pkt[TCP].sport = 8080
+                pkt[TCP].sport = 80
 
-            # Delete checksums; Scapy will recalculate them automatically
             del pkt[TCP].chksum
             del pkt.getlayer('IP').chksum
 
 # Save the modified version
-wrpcap('mismatched_telnet.cap', packets)
-print("Done! Created mismatched_telnet.cap")
+wrpcap('TELNET_on_port80.cap', packets)
+print("Created messed up pcap")
